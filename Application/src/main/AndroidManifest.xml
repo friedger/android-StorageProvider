@@ -17,6 +17,7 @@
 
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.example.android.storageprovider"
           android:versionCode="1"
           android:versionName="1.0">
@@ -30,21 +31,29 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:icon="@drawable/ic_launcher"
-        android:theme="@style/MyAppTheme">
+        android:theme="@style/MyAppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.android.storageprovider.MainActivity"
             android:uiOptions="splitActionBarWhenNarrow"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="https"
+                      android:host="app.graphitedocs.com"/>
+            </intent-filter>
         </activity>
 
         <!--BEGIN_INCLUDE(provider_manifest)-->
         <!--
-        Declare the document provider class MyCloudProvider to the system.  The MANAGE_DOCUMENTS
+        Declare the document provider class GraphiteProvider to the system.  The MANAGE_DOCUMENTS
         permission belongs only to the Android system, ensuring this provider will never be used
         directly by another app.  The provider must grant URI permissions in order to expose the
         specific documents(s) chosen, while not sharing all of its data by default.  It must be
@@ -53,7 +62,7 @@
         picker UI.
         -->
         <provider
-            android:name="com.example.android.storageprovider.MyCloudProvider"
+            android:name="com.example.android.storageprovider.GraphiteProvider"
             android:authorities="com.example.android.storageprovider.documents"
             android:grantUriPermissions="true"
             android:exported="true"
